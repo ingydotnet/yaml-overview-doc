@@ -1,0 +1,97 @@
+= YAML Overview
+
+YAML is conceptually very simple. The spec is quite large due to the number of
+edge cases to make it human friendly, but the core concepts are actually quite
+small.
+
+This is a Quick Overview of the YAML Data Model and the YAML Syntax concepts
+that support it.
+
+== Glossary
+
+This section is a glossary of the key terms and concepts involved in
+understanding YAML.
+
+- stream
+
+  A YAML stream is a complete YAML text (file or string) consisting of zero or
+  more YAML /documents/. By comparision a JSON stream consists of exactly one
+  document.
+
+- document
+
+  A serialization of exactly one /node/.
+
+- node
+
+  A node is a single object. There are 3 /kind/s of nodes.
+
+- kind
+
+  *Kind* is the word we use to say whether an object is a hash, array or single
+  value. YAML uses the respective terms: /mapping/, /sequence/ and /scalar/.
+
+- mapping
+
+  A *mapping* is set of key / value pairings, where the keys are unique. Each
+  key and value is in turn a YAML *node*. This is an analog to the programming
+  terms: *hash*, *dictionary* or *associative array*.
+
+- sequence
+
+  A *sequence* is an ordered set of YAML nodes. This is an analog to the
+  programming terms: *list* or *array*.
+
+- scalar
+
+  A non-/collection/ node value. ie A single value like a string a number or a
+  boolean.
+
+- collection
+
+  Mappings and sequences are known generically as *collections*.
+
+- reference
+
+  A reference is a pointer to the same node somewhere else in the /document/.
+  YAML syntax uses the concepts of /anchor/ and /alias/ to serialize
+  references.
+
+- type
+
+  In addition to a /kind/ every node has a type. YAML syntax uses a /tag/
+  system to explicitly denote type, but tyeps are almost always determined
+  implicitly in practice.
+
+- anchor
+
+  A name given to a YAML node using the `&anchor-name` syntax.
+
+- alias
+
+  A pointer to an anchor using the `*anchor-name` syntax.
+
+- tag
+
+  A URL indicating the intended type of a node.
+
+That's it really.
+
+= Syntax
+
+NOTE: /To be expanded later.../
+
+Here is an example of a YAML document using anchor and alias to denote a
+reference to a common node:
+
+  name: &brian
+    first: Brian
+    last: Aker
+  person: *brian
+
+References can also be recursive:
+
+  person: &brian
+    first: Brian
+    last: Aker
+    self: *brian

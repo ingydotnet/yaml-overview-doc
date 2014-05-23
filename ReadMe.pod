@@ -1,0 +1,85 @@
+=head1 YAML Overview
+
+YAML is conceptually very simple. The spec is quite large due to the number of edge cases to make it human friendly, but the core concepts are actually quite small.
+
+This is a Quick Overview of the YAML Data Model and the YAML Syntax concepts that support it.
+
+=head2 Glossary
+
+This section is a glossary of the key terms and concepts involved in understanding YAML.
+
+=over
+
+=item stream
+
+A YAML stream is a complete YAML text (file or string) consisting of zero or more YAML I<documents>. By comparision a JSON stream consists of exactly one document.
+
+=item document
+
+A serialization of exactly one I<node>.
+
+=item node
+
+A node is a single object. There are 3 I<kind>s of nodes.
+
+=item kind
+
+B<Kind> is the word we use to say whether an object is a hash, array or single value. YAML uses the respective terms: I<mapping>, I<sequence> and I<scalar>.
+
+=item mapping
+
+A B<mapping> is set of key / value pairings, where the keys are unique. Each key and value is in turn a YAML B<node>. This is an analog to the programming terms: B<hash>, B<dictionary> or B<associative array>.
+
+=item sequence
+
+A B<sequence> is an ordered set of YAML nodes. This is an analog to the programming terms: B<list> or B<array>.
+
+=item scalar
+
+A non-I<collection> node value. ie A single value like a string a number or a boolean.
+
+=item collection
+
+Mappings and sequences are known generically as B<collections>.
+
+=item reference
+
+A reference is a pointer to the same node somewhere else in the I<document>. YAML syntax uses the concepts of I<anchor> and I<alias> to serialize references.
+
+=item type
+
+In addition to a I<kind> every node has a type. YAML syntax uses a I<tag> system to explicitly denote type, but tyeps are almost always determined implicitly in practice.
+
+=item anchor
+
+A name given to a YAML node using the C<&anchor-name> syntax.
+
+=item alias
+
+A pointer to an anchor using the C<*anchor-name> syntax.
+
+=item tag
+
+A URL indicating the intended type of a node.
+
+=back
+
+That's it really.
+
+=head1 Syntax
+
+NOTE: I<To be expanded later...>
+
+Here is an example of a YAML document using anchor and alias to denote a reference to a common node:
+
+    name: &brian
+      first: Brian
+      last: Aker
+    person: *brian
+
+References can also be recursive:
+
+    person: &brian
+      first: Brian
+      last: Aker
+      self: *brian
